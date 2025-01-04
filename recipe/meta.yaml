@@ -6,22 +6,24 @@
   version: "{{ version }}"
 
  source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 10943e5df83f592b4d61b63ad1afff855ccc8c9467f78718f0a59809ba1fe68c
 
  build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . -vv "
 
  requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
   run:
-    - python
+    - python >={{ python_min }}
 
  test:
+  requires:
+   - python {{ python_min }}
   imports:
     - logstash
 
